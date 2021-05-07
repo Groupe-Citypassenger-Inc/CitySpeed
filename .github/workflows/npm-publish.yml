@@ -1,9 +1,8 @@
-name: CitySpeedNPM
+name: CitySpeedPack
 
 on:
   push:
     branches: [ master ]
-
 
 jobs:
   minify-and-publish-npm:
