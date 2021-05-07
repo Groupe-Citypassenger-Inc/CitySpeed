@@ -31,4 +31,4 @@ jobs:
       run: ./node_modules/.bin/minify speedtest.css | ./node_modules/.bin/sponge speedtest.css
     - run: npm publish
       env:
-        NODE_AUTH_TOKEN: ${{secrets.NPM_AUTO_TOKEN}}
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_2}}
