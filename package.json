@@ -2,7 +2,10 @@
   "name": "city_speed",
   "version": "0.0.1",
   "description": "Tools to test speed",
-  "main":  ["speedtest.js","speedtest.css"],
+  "main": [
+    "speedtest.js",
+    "speedtest.css"
+  ],
   "scripts": {
     "test": "echo \"No test specified\""
   },
