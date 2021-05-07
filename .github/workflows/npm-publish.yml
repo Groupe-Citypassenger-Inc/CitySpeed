@@ -1,3 +1,5 @@
+# This is a basic to minify and push in npm packs
+
 name: CitySpeedPack
 
 on:
