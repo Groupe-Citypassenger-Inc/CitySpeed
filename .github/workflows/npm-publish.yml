@@ -1,0 +1,21 @@
+name: CitySpeedNPM
+
+on:
+  push:
+    branches: [ master ]
+
+
+jobs:
+  minify-and-publish-npm:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Minify Action
+        uses: anthonyftwang/minify-action@v1.0.1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+          registry-url: 'https://registry.npmjs.org'      
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTO_TOKEN}}
