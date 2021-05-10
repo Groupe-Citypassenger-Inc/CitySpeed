@@ -33,12 +33,12 @@
       forceIE11Workaround: false //when set to true, it will foce the IE11 upload test on all browsers. Debug only
     };
     this._value = {
-      download: "",
-      upload: "",
-      ping: "",
-      jitter: "",
-      client_ip: "",
-      isp_info: ""
+      download: undefined,
+      upload: undefined,
+      ping: undefined,
+      jitter: undefined,
+      client_ip: undefined,
+      isp_info: undefined
     };
     this._loaded = {
       download: 0,
@@ -431,14 +431,18 @@
         $("#ip").text(this._value.client_ip);
         $("#download").text((this._state === undefined || !this._value.download) ? "..." : this._value.download);
         $("#upload").text((this._state === undefined || !this._value.upload) ? "..." : this._value.upload);
-        $("#ping").text(this._value.ping);
-        $("#jitter").text(this._value.jitter);
+        $("#ping").text((this._state === undefined || !this._value.upload) ? "..." : this._value.ping);
+        $("#jitter").text((this._state === undefined || !this._value.upload) ? "..." : this._value.jitter);
       }
     },
     start: function() {
       if (this._state === "running") {
         return;
       } else {
+        $("#result").css("display", "none");
+        $("#good_connection").css("display", "none");
+        $("#medium_connection").css("display", "none");
+        $("#bad_connection").css("display", "none");
         $("#launch_test").attr("class", "running");
         this._state = "running";
         this._interval.update = setInterval((function(speedtest) {
@@ -451,20 +455,21 @@
         this.download_test();
       }
     },
-    clear: function() {
+    clear: function(state) {
       this.clear_requests();
       clearInterval(this._interval.update);
       clearInterval(this._interval.download);
       clearInterval(this._interval.upload);
+      this._state = state;
       this._test_failed = false;
       this._loaded.download = 0;
       this._loaded.upload = 0;
-      this._value.client_ip = "";
-      this._value.isp_info = "";
-      this._value.download = "";
-      this._value.upload = "";
-      this._value.ping = "";
-      this._value.jitter = "";
+      this._value.client_ip = null;
+      this._value.isp_info = null;
+      this._value.download = 0;
+      this._value.upload = 0;
+      this._value.ping = 0;
+      this._value.jitter = 0;
     },
     abort: function() {
       this._state = "aborted";
@@ -474,8 +479,7 @@
       this.update();
       $("#launch_test").attr("class", "");
       if (this._state === "aborted") {
-        this._state = undefined;
-        this.clear();
+        this.clear(undefined);
         $("#result").css("display", "none");
         return;
       } else {
@@ -486,19 +490,15 @@
           "ping": parseFloat($("#ping").text())
         };
         if (speedtest_result["download"] >= 25 && speedtest_result["upload"] >= 25) {
-          $("#connection_quality").text("de bonne qualité");
-          $("#connection_quality").css("color", "green");
+          $("#good_connection").css("display", "block");
         } else if (speedtest_result["download"] >= 10 && speedtest_result["upload"] >= 10) {
-          $("#connection_quality").text("moyenne");
-          $("#connection_quality").css("color", "#F7D260");
+          $("#medium_connection").css("display", "block");
         } else {
-          $("#connection_quality").text("de mauvaise qualité");
-          $("#connection_quality").css("color", "red");
+          $("#bad_connection").css("display", "block");
         }
+        $('#result').css("display", "block");
         $("#offer_link").attr("href", "https://google.com/");
-        $("#result").css("display", "block");
-        this._state = "ended";
-        this.clear();
+        this.clear("ended");
       }
     }
   };

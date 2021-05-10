@@ -1,21 +1,42 @@
-html, body {
-  border:none; padding:0; margin:0;
-  background:#FFFFFF;
-  color:#202020;
-}
-
-body {
+#speedtest {
+  background: #FFFFFF;
+  border: none;
+  padding: 0;
+  margin: 0;
   text-align: center;
-  font-family: "Roboto",sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-h1 {
+#speedtest>h1 {
   color: #404040;
+  margin-bottom: 1em;
+}
+
+#result {
+  display: none;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+#good_connection {
+  display: none;
+  color: #309030;
+}
+
+#medium_connection {
+  display: none;
+  color: orange;
+}
+
+#bad_connection {
+  display: none;
+  color: #FF6060;
 }
 
 #launch_test {
   display: inline-block;
-  margin: 0 auto;
+  margin-top: 1em;
   color: #6060AA;
   background-color: rgba(0,0,0,0);
   border: 0.15em solid #6060FF;
@@ -42,13 +63,13 @@ h1 {
   content: "Start";
 }
 
-#launch_test.running:before{
+#launch_test.running:before {
   content: "Abort";
 }
 
-#test {
-  margin-top:2em;
-  margin-bottom:12em;
+#speedtest {
+  margin-top:1em;
+  margin-bottom:1em;
 }
 
 div.testArea {
@@ -61,19 +82,16 @@ div.testArea {
 
 div.testName {
   position: absolute;
-  top:0.1em; left:0;
   width: 100%;
   font-size: 1.4em;
-  z-index: 9;
 }
 
 div.meterText {
+  padding-top: 1em;
   position: absolute;
-  bottom: 1.5em;
   left: 0;
   width: 100%;
   font-size: 2.5em;
-  z-index: 9;
 }
 
 #download {
