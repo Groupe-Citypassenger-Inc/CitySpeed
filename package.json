@@ -1,6 +1,6 @@
 {
   "name": "city_speed",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tools to test speed",
   "main": [
     "speedtest.js",
